@@ -1,8 +1,40 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('User', {
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
+// const Promise = require('bluebird');
+const bcrypt = require('bcrypt-nodejs');
+
+function hashPassword(user, options) {
+  const SALT_FACTOR = 8;
+  console.log('HASHING');
+  if (!user.changed('password')) {
+    return null;
+  }
+  const salt = bcrypt.genSaltSync(SALT_FACTOR);
+  const hash = bcrypt.hashSync(user.password, salt, null);
+  user.password = hash;
+  console.log(user.password);
+}
+
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define(
+    'User',
+    {
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+      password: DataTypes.STRING,
     },
-    password: DataTypes.STRING,
-  });
+    {
+      hooks: {
+        beforeCreate: hashPassword,
+        beforeUpdate: hashPassword,
+        beforeSave: hashPassword,
+      },
+    },
+  );
+
+  User.prototype.comparePassword = async function comparePassword(password) {
+    return bcrypt.compare(password, this.password, (err, res) => res);
+  };
+
+  return User;
+};

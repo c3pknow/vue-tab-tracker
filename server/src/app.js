@@ -7,15 +7,15 @@ const config = require('./config/config');
 
 const app = express();
 app.use(morgan('combined'));
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
+app.use(bodyParser.json());
 app.use(cors());
 
 require('./routes')(app);
 
 // { force: true } to drop and recreate DB from models
-sequelize.sync().then(() => {
+const forceSYNC = 0;
+
+sequelize.sync({ force: forceSYNC }).then(() => {
   app.listen(config.port);
   console.log(`Server started on port ${config.port}`);
 });
