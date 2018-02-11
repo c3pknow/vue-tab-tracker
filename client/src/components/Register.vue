@@ -1,10 +1,7 @@
 <template>
-  <v-layout column>
+    <v-layout column>
     <v-flex xs6 offset-xs3>
-      <div class="white elevation-2">
-        <v-toolbar flat densse class="deep-purple" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
-        </v-toolbar>
+     <panel title="Join" >
         <div class="pl-4 pr-4 pt-2 pb-2">
           <form action="tab-tracker-login"
             autocomplete="off">
@@ -26,16 +23,17 @@
             <br>
             <v-btn
               class="deep-purple" dark
-              @click="register">Register</v-btn>
+              @ click="register">Join</v-btn>
           </form>
         </div>
-      </div>
+     </panel>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService';
+import Panel from '@/components/Panel';
 
 export default {
   name: 'HelloWorld',
@@ -53,10 +51,14 @@ export default {
           email: this.email,
           password: this.password,
         });
+        this.$router.push({ name: 'login' });
       } catch (error) {
         this.error = error.response.data.error;
       }
     },
+  },
+  components: {
+    Panel,
   },
 };
 </script>
