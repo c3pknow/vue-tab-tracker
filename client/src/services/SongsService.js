@@ -5,6 +5,10 @@ export default {
     return api().get('songs');
   },
 
+  post(song) {
+    return api().post('songs', song);
+  },
+
   // show() {
   //   return api().get('songs');
   // },
