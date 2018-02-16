@@ -1,7 +1,7 @@
 <template>
   <panel title="Songs" >
     <v-btn
-        @ click="navigateTo({name: 'songs-create'})"
+        :to="{name: 'songs-create'}"
         slot="action"
         fab
         class="white accent-1"
@@ -27,9 +27,9 @@
         </div>
           <v-btn
             class="deep-purple" dark
-            @click="navigateTo({
+            :to="{
                 name: 'song',
-                params: {songId: song.id}})">
+                params: {songId: song.id}}">
               View Song
           </v-btn>
       </v-flex>
@@ -57,11 +57,6 @@ export default {
   },
   async mounted() {
     this.songs = (await SongsService.index()).data;
-  },
-  methods: {
-    navigateTo(route) {
-      this.$router.push(route);
-    },
   },
   watch: {
     '$route.query.search': {

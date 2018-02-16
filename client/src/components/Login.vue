@@ -17,7 +17,7 @@
               v-model="password"
               placeholder="password" ></v-text-field>
             <br>
-            <div class="error" v-html="error"></div>
+            <div class="danger-alert" v-html="error"></div>
             <br>
             <v-btn
               class="deep-purple" dark

@@ -14,12 +14,12 @@
 
       <v-btn
         class="deep-purple" dark
-        @click="navigateTo({
+        :to="{
           name: 'songs-edit',
-          params: {
-            songId: song.id,
+          params () {
+            return {songId: song.id}
           }
-        })">Edit Song</v-btn>
+        }">Edit Song</v-btn>
     </v-flex>
     <v-flex xs6>
       <img class="album-image" :src="song.albumImageURL" alt="">
@@ -34,11 +34,6 @@
 export default {
   props: ['song'],
   components: {},
-  methods: {
-    async navigateTo(route) {
-      this.$router.push(route);
-    },
-  },
 };
 </script>
 

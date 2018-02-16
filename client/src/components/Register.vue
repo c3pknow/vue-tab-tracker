@@ -19,7 +19,7 @@
               autocomplete="new-password"
               placeholder="password" ></v-text-field>
             <br>
-            <div class="error" v-html="error"></div>
+            <div class="danger-alert" v-html="error"></div>
             <br>
             <v-btn
               class="deep-purple" dark
@@ -61,7 +61,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error {
-  color: red;
-}
+
 </style>
