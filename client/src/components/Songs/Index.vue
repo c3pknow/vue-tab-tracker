@@ -1,0 +1,55 @@
+<template>
+   <v-layout column>
+    <v-flex xs6 offset-xs3>
+      <song-search-panel />
+      <songs-panel class="mt-2" />
+    </v-flex>
+  </v-layout>
+</template>
+<script>
+import SongsService from '@/services/SongsService';
+import SongsPanel from './SongsPanel';
+import SongSearchPanel from './SongSearchPanel';
+
+export default {
+  data() {
+    return {
+      songs: null,
+    };
+  },
+  components: {
+    SongSearchPanel,
+    SongsPanel,
+  },
+  async mounted() {
+    this.songs = (await SongsService.index()).data;
+  },
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route);
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.song {
+  padding: 20px;
+  height: 330px;
+  overflow: hidden;
+}
+.song-title {
+  font-size: 30px;
+}
+.song-artist {
+  font-size: 24px;
+}
+.song-genre {
+  font-size: 18px;
+}
+.album-image {
+  width: 50%;
+  margin: 0 auto;
+}
+</style>

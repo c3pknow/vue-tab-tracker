@@ -1,15 +1,23 @@
 import api from '@/services/Api';
 
 export default {
-  index() {
-    return api().get('songs');
+  index(search) {
+    return api().get('songs', {
+      params: {
+        search,
+      },
+    });
+  },
+
+  show(songId) {
+    return api().get(`songs/${songId}`);
   },
 
   post(song) {
     return api().post('songs', song);
   },
 
-  // show() {
-  //   return api().get('songs');
-  // },
+  put(song) {
+    return api().put(`songs/${song.id}`, song);
+  },
 };

@@ -76,13 +76,13 @@
       <div class="danger-alert" v-if="error">{{ error }}</div>
       <v-btn
         class="deep-purple" dark
-        @click="create">Add Song</v-btn>
+        @click="update">Update Song</v-btn>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import SongService from '@/services/SongsService';
+import SongsService from '@/services/SongsService';
 
 export default {
   data() {
@@ -101,8 +101,12 @@ export default {
       required: value => !!value || 'Required.',
     };
   },
+  async mounted() {
+    const songId = this.$store.state.route.params.songId;
+    this.song = (await SongsService.show(songId)).data;
+  },
   methods: {
-    async create() {
+    async update() {
       this.error = null;
       const requiredFieldsComplete = Object.keys(this.song).every(key => !!this.song[key]);
 
@@ -111,8 +115,8 @@ export default {
         return;
       }
       try {
-        await SongService.post(this.song);
-        this.$router.push({ name: 'songs' });
+        await SongsService.put(this.song);
+        this.$router.push({ name: 'song', params: { songId: this.song.id } });
       } catch (err) {
         console.log(err);
       }

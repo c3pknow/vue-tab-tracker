@@ -33,7 +33,6 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService';
-import Panel from '@/components/Panel';
 
 export default {
   name: 'HelloWorld',
@@ -57,16 +56,12 @@ export default {
       }
     },
   },
-  components: {
-    Panel,
-  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .error {
-  color:red;
+  color: red;
 }
-
 </style>
