@@ -12,10 +12,7 @@ app.use(cors());
 
 require('./routes')(app);
 
-// { force: true } to drop and recreate DB from models
-const forceSYNC = 0;
-
-sequelize.sync({ force: forceSYNC }).then(() => {
+sequelize.sync().then(() => {
   app.listen(config.port);
   console.log(`Server started on port ${config.port}`);
 });

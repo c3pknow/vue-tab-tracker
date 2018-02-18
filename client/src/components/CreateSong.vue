@@ -40,7 +40,7 @@
               required
               :rules="[required]"
               v-model="song.albumImageURL"
-              placeholder="URL to ablum image" ></v-text-field>
+              placeholder="URL to album image" ></v-text-field>
 
           <v-text-field
               label="Youtube ID"

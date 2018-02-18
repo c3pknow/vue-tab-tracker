@@ -4,7 +4,7 @@
       <router-link
        class="home"
        tag="span"
-      :to="{name: 'root'}">
+      :to="{name: 'songs'}">
       Tab Tracker
       </router-link>
     </v-toolbar-title>
@@ -23,7 +23,7 @@
 
       <v-btn flat dark
         v-if="$store.state.isUserLoggedIn"
-        :to="{name:'logout'}">Logout</v-btn>
+        @click="logout">Logout</v-btn>
 
       <v-btn flat dark
         v-if="!$store.state.isUserLoggedIn"
@@ -37,6 +37,7 @@ export default {
     logout() {
       this.$store.dispatch('setToken', null);
       this.$store.dispatch('setUser', null);
+      this.$store.state.isUserLoggedIn = false;
       this.$router.push({ name: 'login' });
     },
   },

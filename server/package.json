@@ -6,13 +6,15 @@
   "scripts": {
     "start": "./node_modules/nodemon/bin/nodemon.js src/app.js --exec 'npm run lint && node'",
     "lint": "./node_modules/.bin/eslint **/*.js test/unit test/e2e/specs",
-    "lint-fix": "./node_modules/.bin/eslint **/*.js test/unit test/e2e/specs --fix"
+    "lint-fix": "./node_modules/.bin/eslint **/*.js test/unit test/e2e/specs --fix",
+    "seed": "node ./src/seed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",

@@ -12,10 +12,14 @@ fs
   .filter(file => file !== 'index.js')
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
-    console.log(path.join(__dirname, file));
-    console.log(model);
     db[model.name] = model;
   });
+
+Object.keys(db).forEach((modelName) => {
+  if ('associate' in db[modelName]) {
+    db[modelName].associate(db);
+  }
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

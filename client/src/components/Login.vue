@@ -15,13 +15,15 @@
               type="password"
               label="Password"
               v-model="password"
-              placeholder="password" ></v-text-field>
+              placeholder="password"
+              v-on:keyup.enter="login" ></v-text-field>
             <br>
             <div class="danger-alert" v-html="error"></div>
             <br>
             <v-btn
               class="deep-purple" dark
-              @click="login">Login</v-btn>
+              @click="login"
+              >Login</v-btn>
         </div>
        </slot>
      </panel>
@@ -50,7 +52,7 @@ export default {
         });
         this.$store.dispatch('setToken', response.data.token);
         this.$store.dispatch('setUser', response.data.user);
-        this.$router.push({ name: 'root' });
+        this.$router.push({ name: 'songs' });
       } catch (error) {
         this.error = error.response.data.error;
       }
@@ -61,7 +63,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.error {
-  color: red;
-}
 </style>
