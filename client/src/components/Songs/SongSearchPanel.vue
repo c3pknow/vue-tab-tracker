@@ -17,12 +17,12 @@ export default {
     };
   },
   watch: {
-      search: _.debounce(async function (value) {
-      //search (value){ //_.debounce(async function (value) {
+    search: _.debounce(async function (value) {
+      // search (value){ //_.debounce(async function (value) {
       const route = {
         name: 'songs',
       };
-      if (this.search != '') {
+      if (this.search !== '') {
         route.query = {
           search: this.search,
         };

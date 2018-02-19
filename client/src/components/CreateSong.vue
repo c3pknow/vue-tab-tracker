@@ -114,7 +114,7 @@ export default {
         await SongService.post(this.song);
         this.$router.push({ name: 'songs' });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
   },

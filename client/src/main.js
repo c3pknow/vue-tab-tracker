@@ -10,7 +10,6 @@ import Panel from '@/components/globals/Panel';
 import App from './App';
 import router from './router';
 
-
 Vue.config.productionTip = false;
 
 Vue.use(Vuetify);
@@ -19,7 +18,6 @@ Vue.component('panel', Panel);
 
 sync(store, router);
 
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -27,4 +25,5 @@ new Vue({
   store,
   components: { App },
   template: '<App/>',
+  render: h => h(App),
 });

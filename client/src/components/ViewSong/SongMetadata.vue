@@ -13,13 +13,23 @@
       </div>
 
       <v-btn
-        class="deep-purple" dark
+        class="deep-purple" small dark
         :to="{
           name: 'songs-edit',
           params () {
             return {songId: song.id}
           }
-        }">Edit Song</v-btn>
+        }">Edit</v-btn>
+
+      <v-btn
+        v-if="isUserLoggedIn && !bookmark"
+        class="deep-purple" dark small
+        @click="setPin">Pin</v-btn>
+
+      <v-btn
+        v-if="isUserLoggedIn && bookmark"
+        class="deep-purple" dark small
+        @click="removePin">Unpin</v-btn>
     </v-flex>
     <v-flex xs6>
       <img class="album-image" :src="song.albumImageURL" alt="">
@@ -31,9 +41,56 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import BookmarksService from '@/services/BookmarksService';
+
 export default {
   props: ['song'],
-  components: {},
+  data() {
+    return {
+      bookmark: null,
+    };
+  },
+  computed: {
+    ...mapState([
+      'isUserLoggedIn',
+    ]),
+  },
+  watch: {
+    async song () {
+       if(!this.isUserLoggedIn){
+      return;
+    }
+      try {
+        this.bookmark = (await BookmarksService.get({
+          songId: this.song.id,
+          userId: this.$store.state.user.id,
+        })).data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  },
+  methods: {
+    async setPin() {
+      try {
+        this.bookmark = (await BookmarksService.post({
+          songId: this.song.id,
+          userId: this.$store.state.user.id,
+        })).data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async removePin() {
+      try {
+        await BookmarksService.delete(this.bookmark.id);
+        this.bookmark = null;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
 };
 </script>
 
@@ -52,7 +109,7 @@ export default {
 }
 .song-genre {
   font-size: 16px;
-  padding-bottom: 50px;
+  padding-bottom: 20px;
 }
 .album-image {
   width: 50%;

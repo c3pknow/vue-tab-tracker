@@ -118,7 +118,7 @@ export default {
         await SongsService.put(this.song);
         this.$router.push({ name: 'song', params: { songId: this.song.id } });
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
     },
   },

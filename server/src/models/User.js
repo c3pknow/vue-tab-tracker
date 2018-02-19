@@ -3,14 +3,12 @@ const bcrypt = require('bcrypt-nodejs');
 
 function hashPassword(user, options) {
   const SALT_FACTOR = 8;
-  console.log('HASHING');
   if (!user.changed('password')) {
     return null;
   }
   const salt = bcrypt.genSaltSync(SALT_FACTOR);
   const hash = bcrypt.hashSync(user.password, salt, null);
   user.password = hash;
-  console.log(user.password);
 }
 
 module.exports = (sequelize, DataTypes) => {
