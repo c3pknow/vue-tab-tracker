@@ -9,7 +9,6 @@ export default {
   post(bookmark) {
     return api().post('bookmarks', {
       songId: bookmark.songId,
-      userId: bookmark.userId,
     });
   },
   delete(bookmarkId) {

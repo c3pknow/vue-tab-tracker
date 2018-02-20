@@ -65,7 +65,6 @@ export default {
       try {
         this.bookmark = (await BookmarksService.get({
           songId: this.song.id,
-          userId: this.user.id,
         })).data[0];
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -76,13 +75,12 @@ export default {
   methods: {
     async setPin() {
       try {
-        const bookmarks = (await BookmarksService.post({
+        const bookmark = (await BookmarksService.post({
           songId: this.song.id,
-          userId: this.user.id,
         })).data;
 
-        if (bookmarks.length) {
-          this.bookmark = bookmarks[0];
+        if (bookmark) {
+          this.bookmark = bookmark;
         }
       } catch (error) {
         // eslint-disable-next-line no-console

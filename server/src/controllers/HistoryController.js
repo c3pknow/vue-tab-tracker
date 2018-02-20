@@ -4,7 +4,7 @@ const _ = require('lodash');
 module.exports = {
   async index(req, res) {
     try {
-      const { userId } = req.query;
+      const userId = req.user.id;
       const history = await History.findAll({
         where: {
           UserId: userId,
@@ -13,7 +13,10 @@ module.exports = {
       })
         .map(record => record.toJSON())
         .map(record => _.extend({}, record.Song, record));
-      res.send(history || false);
+      console.log(history.length);
+      const uniqueHistory = _.uniqBy(history, song => song.SongId);
+      console.log('uniqueHistory: ', uniqueHistory.length);
+      res.send(uniqueHistory || false);
     } catch (error) {
       res.status(500).send({
         error: 'An error occurred fetching history.',
@@ -22,8 +25,8 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      const { songId, userId } = req.body;
-
+      const { songId } = req.body;
+      const userId = req.user.id;
       const record = await History.create({
         SongId: songId,
         UserId: userId,

@@ -43,14 +43,12 @@ export default {
     if (this.isUserLoggedIn) {
       SongHistoryService.post({
         songId,
-        userId: this.user.id,
       });
     }
   },
   computed: {
     ...mapState([
-      'isUserLoggedIn',
-      'user',
+      'isUserLoggedIn',      
       'route',
     ]),
   },

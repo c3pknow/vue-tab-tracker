@@ -52,9 +52,7 @@ export default {
       if (!this.isUserLoggedIn) {
         return;
       }
-      this.bookmarks = (await BookmarksService.get({
-        userId: this.user.id,
-      })).data;
+      this.bookmarks = (await BookmarksService.get()).data;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);

@@ -4,7 +4,8 @@ const _ = require('lodash');
 module.exports = {
   async get(req, res) {
     try {
-      const { songId, userId } = req.query;
+      const userId = req.user.id;
+      const { songId } = req.query;
       const where = {
         UserId: userId,
       };
@@ -30,7 +31,8 @@ module.exports = {
   },
   async post(req, res) {
     try {
-      const { songId, userId } = req.body;
+      const userId = req.user.id;
+      const { songId } = req.body;
       const bookmark = await Bookmark.findOne({
         where: {
           SongId: songId,
@@ -55,14 +57,24 @@ module.exports = {
       });
     }
   },
+  // eslint-disable-next-line consistent-return
   async delete(req, res) {
     try {
+      const userId = req.user.id;
       const { bookmarkId } = req.params;
-      console.log('req.params: ', req.params);
-      console.log('bookmarkId: ', bookmarkId);
-      const bookmark = await Bookmark.findById(bookmarkId);
+      const bookmark = await Bookmark.findOne({
+        where: {
+          id: bookmarkId,
+          UserId: userId,
+        },
+      });
+      if (!bookmark) {
+        return res.status(403).send({
+          error: 'Unauthorized access requested deleting a bookmark',
+        });
+      }
       await bookmark.destroy();
-      res.send(bookmark);
+      return res.send(bookmark);
     } catch (error) {
       res.status(500).send({
         error: 'An error occurred deleting a bookmark.',

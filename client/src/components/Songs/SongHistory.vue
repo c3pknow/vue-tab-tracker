@@ -44,7 +44,6 @@ export default {
   computed: {
     ...mapState([
       'isUserLoggedIn',
-      'user',
     ]),
   },
   async mounted() {
@@ -52,9 +51,7 @@ export default {
       if (!this.isUserLoggedIn) {
         return;
       }
-      this.songs = (await SongHistoryService.index({
-        userId: this.user.id,
-      })).data;
+      this.songs = (await SongHistoryService.index()).data;
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
