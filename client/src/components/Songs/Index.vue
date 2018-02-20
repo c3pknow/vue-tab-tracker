@@ -1,8 +1,12 @@
 <template>
-   <v-layout column>
-    <v-flex xs6 offset-xs3>
+   <v-layout >
+    <v-flex xs4>
+      <song-bookmarks />
+      <song-history class="mt-3" />
+    </v-flex>
+    <v-flex xs8 class="ml-3">
       <song-search-panel />
-      <songs-panel class="mt-2" />
+      <songs-panel class="mt-3" />
     </v-flex>
   </v-layout>
 </template>
@@ -10,6 +14,8 @@
 import SongsService from '@/services/SongsService';
 import SongsPanel from './SongsPanel';
 import SongSearchPanel from './SongSearchPanel';
+import SongBookmarks from './SongBookmarks';
+import SongHistory from './SongHistory';
 
 export default {
   data() {
@@ -20,6 +26,8 @@ export default {
   components: {
     SongSearchPanel,
     SongsPanel,
+    SongBookmarks,
+    SongHistory,
   },
   async mounted() {
     this.songs = (await SongsService.index()).data;

@@ -17,8 +17,8 @@ export default {
     };
   },
   watch: {
-    search: _.debounce(async function (value) {
-      // search (value){ //_.debounce(async function (value) {
+    // eslint-disable-next-line func-names
+    search: _.debounce(async function () {
       const route = {
         name: 'songs',
       };

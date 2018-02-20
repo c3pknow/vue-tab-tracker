@@ -13,7 +13,7 @@
       </div>
 
       <v-btn
-        class="deep-purple" small dark
+        class="red lighten-1" small dark
         :to="{
           name: 'songs-edit',
           params () {
@@ -23,12 +23,12 @@
 
       <v-btn
         v-if="isUserLoggedIn && !bookmark"
-        class="deep-purple" dark small
+        class="red lighten-1" dark small
         @click="setPin">Pin</v-btn>
 
       <v-btn
         v-if="isUserLoggedIn && bookmark"
-        class="deep-purple" dark small
+        class="red lighten-1" dark small
         @click="removePin">Unpin</v-btn>
     </v-flex>
     <v-flex xs6>
@@ -54,31 +54,38 @@ export default {
   computed: {
     ...mapState([
       'isUserLoggedIn',
+      'user',
     ]),
   },
   watch: {
-    async song () {
-       if(!this.isUserLoggedIn){
-      return;
-    }
+    async song() {
+      if (!this.isUserLoggedIn) {
+        return;
+      }
       try {
         this.bookmark = (await BookmarksService.get({
           songId: this.song.id,
-          userId: this.$store.state.user.id,
-        })).data;
+          userId: this.user.id,
+        })).data[0];
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
-    }
+    },
   },
   methods: {
     async setPin() {
       try {
-        this.bookmark = (await BookmarksService.post({
+        const bookmarks = (await BookmarksService.post({
           songId: this.song.id,
-          userId: this.$store.state.user.id,
+          userId: this.user.id,
         })).data;
+
+        if (bookmarks.length) {
+          this.bookmark = bookmarks[0];
+        }
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
     },
@@ -87,6 +94,7 @@ export default {
         await BookmarksService.delete(this.bookmark.id);
         this.bookmark = null;
       } catch (error) {
+        // eslint-disable-next-line no-console
         console.log(error);
       }
     },

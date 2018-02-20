@@ -2,7 +2,7 @@
   <div id="app">
      <v-app>
        <page-header></page-header>
-      <v-content >
+      <v-content class="mt-5">
         <v-container fluid>
           <router-view/>
         </v-container>

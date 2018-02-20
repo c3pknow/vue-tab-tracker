@@ -26,7 +26,7 @@
           {{song.genre}}
         </div>
           <v-btn
-            class="deep-purple" dark
+            class="red lighten-1" dark
             :to="{
                 name: 'song',
                 params: {songId: song.id}}">

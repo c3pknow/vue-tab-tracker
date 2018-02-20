@@ -75,7 +75,7 @@
       </panel>
       <div class="danger-alert" v-if="error">{{ error }}</div>
       <v-btn
-        class="deep-purple" dark
+        class="red lighten-1" dark
         @click="update">Update Song</v-btn>
     </v-flex>
   </v-layout>

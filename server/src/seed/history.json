@@ -1,0 +1,14 @@
+[
+  {
+    "SongId": 1,
+    "UserId": 2
+  },
+  {
+    "SongId": 2,
+    "UserId": 2
+  },
+  {
+    "SongId": 2,
+    "UserId": 1
+  }
+]

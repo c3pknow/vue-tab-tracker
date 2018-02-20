@@ -21,7 +21,7 @@
             <div class="danger-alert" v-html="error"></div>
             <br>
             <v-btn
-              class="deep-purple" dark
+              class="red lighten-1" dark
               @click="login"
               >Login</v-btn>
         </div>
